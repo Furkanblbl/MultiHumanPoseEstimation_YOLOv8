@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 import time
 
+
+
 class PoseEstimationModel:
     def __init__(self, model_path):
         self.model = YOLO(model_path)
@@ -14,7 +16,7 @@ class PoseEstimationModel:
         """
         results = self.model.track(frame, persist=True) # Detect people using YOLO pattern
         return results 
-
+    
 
     @staticmethod
     def get_person_boxes_and_keypoints(frame, results):
