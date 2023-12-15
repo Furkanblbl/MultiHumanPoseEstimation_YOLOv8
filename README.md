@@ -8,7 +8,7 @@ pip install numpy
 
 
 
-## Example Usage:
+## Example Usage
 
 #### Initialization:
 ```python
