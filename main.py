@@ -1,8 +1,15 @@
+"""
+This program is a pose estimation program that detects the actions of people in the video.
+input: video
+output: action of people in the video
+mail: asari4137@gmail.com, furkanbulbul2222@gmail.com
+authors: Ahmet Sari, Furkan Bulbul
+"""
+
 from ultralytics import YOLO
 import cv2
 import numpy as np
 import time
-
 
 
 class PoseEstimationModel:
@@ -113,7 +120,7 @@ class ActionAnalyzer:
             if (self.left_knee_angle<110) and (self.right_knee_angle<110) and (self.right_hip_angle<95) :  #cokme pozisyonu
                 status = "squatting"
                 
-            elif (abs(int(cordinate[5][1])-int(cordinate[11][1])) < 60) and (ration < 1.0) :        
+            elif (abs(int(cordinate[5][1])-int(cordinate[11][1])) < 60) and (ration < 1.0) :   
                 status = "lie down"
            
             elif(self.left_elbow_angle < 130 or self.right_elbow_angle < 130  ) and ration > 2.0 and (self.left_knee_angle < 150 or self.right_knee_angle < 150):
@@ -134,8 +141,8 @@ class ActionAnalyzer:
         
         
 
-    @staticmethod
-    def calculate_angle(a_x, a_y, b_x, b_y, c_x, c_y):  # 11 13 15 points shoulder elbow wrist
+    @staticmethod 
+    def calculate_angle(a_x, a_y, b_x, b_y, c_x, c_y):  
         """
         Calculating the angle between given joints
         input:
@@ -162,10 +169,10 @@ class ActionAnalyzer:
 
 
 
-class VideoProcessor:
+class VideoProcessor: 
     def __init__(self, model_path, video_source):
-        self.pose_model = PoseEstimationModel(model_path)
-        self.video_source = video_source
+        self.pose_model = PoseEstimationModel(model_path) 
+        self.video_source = video_source 
         self.persons = {} 
 
     def process_video(self):
@@ -176,7 +183,7 @@ class VideoProcessor:
         codec = cv2.VideoWriter_fourcc(*'XVID')
         frame_rate = 30.0  
         video_boyutu = (int(cap.get(3)), int(cap.get(4))) 
-        video_kaydedici = cv2.VideoWriter('kaydedilenN_video.avi', codec, frame_rate, video_boyutu)
+        writer = cv2.VideoWriter('recorder_video.avi', codec, frame_rate, video_boyutu) 
 
         while True:
             ret, frame = cap.read() # read video as frame by frame
@@ -214,7 +221,7 @@ class VideoProcessor:
                 print(f"Person {person_id}: {person.status}")
            
 
-            video_kaydedici.write(frame)
+            writer.write(frame)
             # If you want to show the image you can print it on the screen
             cv2.imshow('YOLO Output', frame)
 
@@ -225,11 +232,11 @@ class VideoProcessor:
 
         # Cleanup operations after video processing is finished
         cap.release()
-        video_kaydedici.release()
+        writer.release()
         cv2.destroyAllWindows()
         
 if __name__ == "__main__":
-    model_path = "model/yolov8n-pose.pt"
+    model_path = "model/yolov8n-pose.pt" # if you want to use yolov8m-pose.pt, you must change the model_path = "yolov8m-pose.pt"
     video_source = "videos/media4.mp4"
 
     video_processor = VideoProcessor(model_path, video_source)
