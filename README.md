@@ -8,7 +8,7 @@ pip install numpy
 
 
 
-## Example Usage
+# Example Usage
 
 #### Initialization:
 ```python
@@ -36,23 +36,23 @@ video_processor.process_video()
 5. Observe the output on the screen, displaying the detected actions and their durations for each person throughout the video.
 
 
-## Examples
+# Examples
 
-# Create a VideoProcessor object by providing the YOLO model path and the video source
+Create a VideoProcessor object by providing the YOLO model path and the video source
 model_path = "yolov8n-pose.pt"
 video_source = "videos/media4.mp4"
 video_processor = VideoProcessor(model_path, video_source)
 
-# Process the video to analyze human movements
+Process the video to analyze human movements
 video_processor.process_video()
 
-# Expected Output:
+Expected Output:
 The script will read the specified video file frame by frame.
 For each frame, it will detect humans using the YOLO model.
 It will analyze the movement status of each individual detected in the frame.
 The script will display on the screen the type of action detected for each person and the duration of that action.
 
-# Usage Instructions:
+Usage Instructions:
 Ensure you have the required libraries installed (ultralytics, cv2, numpy, time).
 Replace yolov8m-pose.pt with the correct YOLO model path if different.
 Adjust the video_source variable to the location of your desired video file.
